@@ -31,6 +31,7 @@
 \DeclareBoolOption{qed}             % End solutions with a QED tombstone symbol
 \DeclareBoolOption{hidesolutions}   % Do not display solutions
 \DeclareBoolOption{boxes}           % Wrap problems in boxes
+\DeclareBoolOption{pages}           % Each problem on a new page
 
 % All other options get passed to the article class
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{article}}
@@ -50,9 +51,13 @@
 % default value and will raise an error if used before being set by their
 % corresponding defining macros.
 \def\@name{\@latex@error{No \noexpand\name given}\@ehc}
+\def\@studentid{\@latex@error{No \noexpand\studentid given}\@ehc}
+\def\@email{\@latex@error{No \noexpand\email given}\@ehc}
 \def\@course{\@latex@error{No \noexpand\course given}\@ehc}
+\def\@courseid{\@latex@error{No \noexpand\courseid given}\@ehc}
 \def\@term{\@latex@error{No \noexpand\term given}\@ehc}
 \def\@hwnum{\@latex@error{No \noexpand\hwnum given}\@ehc}
+\def\@duedate{\@latex@error{No \noexpand\duedate given}\@ehc}
 % The following internal homework detail macros have default values and do not
 % have to be specified manually.
 \def\@hwname{Homework}
@@ -68,9 +73,13 @@
 
 % The following four macros must be used in the preamble.
 \def\name#1{\renewcommand\@name{#1}}
+\def\studentid#1{\renewcommand\@studentid{#1}}
+\def\email#1{\renewcommand\@email{#1}}
 \def\course#1{\renewcommand\@course{#1}}
+\def\courseid#1{\renewcommand\@courseid{#1}}
 \def\term#1{\renewcommand\@term{#1}}
 \def\hwnum#1{\renewcommand\@hwnum{#1}}
+\def\duedate#1{\renewcommand\@duedate{#1}}
 % The following just redefine default values and are therefore optional
 \def\hwname#1{\renewcommand\@hwname{#1}}
 \def\solutionname#1{\renewcommand\@solutionname{#1}}
@@ -80,6 +89,10 @@
 %%%%%%%%%%%%%%%%%%%
 % Page formatting %
 %%%%%%%%%%%%%%%%%%%
+
+
+% make the margins a bit smaller
+\RequirePackage[paper=a4paper,margin=1.25in,marginparwidth=70pt]{geometry}
 
 % Set up page headers and footers using the `fancyhdr' package
 \RequirePackage{fancyhdr}
@@ -104,12 +117,12 @@
 % Specify how the title is printed
 \renewcommand\maketitle
 {
-  \thispagestyle{firstpage}
-  \begingroup
-  \center
-  \sffamily\bfseries\Large\@hwtitle
-  \endcenter
-  \endgroup
+  \thispagestyle{plain}
+  \begin{center}
+    \textsf{\textbf{\Large\@hwtitle}}
+  \end{center}
+  \textbf{Name:} \@name \ (\@studentid)\hspace{\fill} \textbf{Due:} \@duedate \\
+  \textbf{Email:} \href{mailto:\@email}{\texttt{\@email}} \hspace{\fill} \textbf{Course:} \@courseid
 }
 % The title is printed automatically, no need to type \maketitle manually
 \AtBeginDocument{\maketitle}
@@ -119,7 +132,7 @@
 % Miscellaneous %
 %%%%%%%%%%%%%%%%%
 
-\RequirePackage{lmodern}            % Use the Latin Modern font
+\RequirePackage{mathpazo}           % Use the Palatino font
 \RequirePackage[utf8]{inputenc}     % Use UTF-8 encoding
 \RequirePackage[T1]{fontenc}        % Use Type 1 fonts
 \RequirePackage{microtype}          % Microtypography package
@@ -252,6 +265,9 @@
       \popQED
     \fi
     \endtrivlist\@endpefalse
+    \ifHW@pages
+      \clearpage
+    \fi
   }
 \fi
 
