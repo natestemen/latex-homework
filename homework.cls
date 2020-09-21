@@ -92,7 +92,12 @@
 
 
 % make the margins a bit smaller
-\RequirePackage[paper=a4paper,margin=1.25in,marginparwidth=70pt]{geometry}
+\RequirePackage[
+  paper=a4paper,
+  headheight=14pt,
+  margin=1.25in,
+  marginparwidth=70pt
+]{geometry}
 
 % Set up page headers and footers using the `fancyhdr' package
 \RequirePackage{fancyhdr}
