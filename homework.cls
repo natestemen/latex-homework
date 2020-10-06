@@ -95,7 +95,7 @@
 \RequirePackage[
   paper=a4paper,
   headheight=14pt,
-  margin=1.25in,
+  margin=1in,
   marginparwidth=70pt
 ]{geometry}
 
