@@ -162,9 +162,13 @@
 % Problem, parts, solution, and claim environments %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+
+
 % Problem environment
 \ifHW@boxes
   \RequirePackage{framed}
+  \RequirePackage{tcolorbox}
+  \newtcolorbox[auto counter,number within=section]{pabox}[2][]{colback=red!5!white,colframe=red!75!black,coltitle=black,fonttitle=\bfseries,title=\sffamily\@problemname~\thetcbcounter #2,#1}
 \fi
 \theoremstyle{definition}
 \newtheorem{@problem}{\sffamily\@problemname}
@@ -174,8 +178,9 @@
 \newenvironment{problem}[1][]
 {
   \ifHW@boxes
-    \framed
-    \vspace{-1.5ex}
+    \begin{pabox}[colback=red!10!white,colframe=red!20!white]
+    % \tcolorbox
+    % \vspace{-1.5ex}
   \fi
   \def\@arg{#1}
   \ifx\@arg\empty
@@ -188,8 +193,9 @@
 {
   \end@problem
   \ifHW@boxes
-    \vspace{-1.5ex}
-    \endframed
+    % \vspace{-1.5ex}
+    \end{pabox}
+    % \endtcolorbox
   \fi
 }
 
