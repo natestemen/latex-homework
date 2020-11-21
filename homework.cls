@@ -156,6 +156,7 @@
 % Mathematics packages
 \RequirePackage{amsmath, amsthm, amssymb}
 \RequirePackage{mathtools}
+\RequirePackage{physics}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
