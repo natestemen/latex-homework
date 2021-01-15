@@ -163,46 +163,39 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+\RequirePackage{tcolorbox}
+\tcbuselibrary{theorems}
+\newtcbtheorem{mytheo}{\@problemname}{colback=red!10,colframe=red!25,coltitle=black,fonttitle=\bfseries\sffamily}{th}
 
 % Problem environment
-\ifHW@boxes
-  \RequirePackage{framed}
-  \RequirePackage{tcolorbox}
-  \newtcolorbox[auto counter,number within=section]{pabox}[2][]{colback=red!5!white,colframe=red!75!black,coltitle=black,fonttitle=\bfseries,title=\sffamily\@problemname~\thetcbcounter #2,#1}
-\fi
 \theoremstyle{definition}
-\newtheorem{@problem}{\sffamily\@problemname}
+\newtheorem{@problem}{}%\sffamily\@problemname}
 \numberwithin{equation}{@problem}
 \numberwithin{table}{@problem}
 \numberwithin{figure}{@problem}
 \newenvironment{problem}[1][]
 {
   \ifHW@boxes
-    \begin{pabox}[colback=red!10!white,colframe=red!20!white]
-    % \tcolorbox
-    % \vspace{-1.5ex}
-  \fi
-  \def\@arg{#1}
-  \ifx\@arg\empty
-    \@problem
-  \else
-    \@problem[\normalfont\@arg\sffamily]
+    \def\@arg{#1}
+    \ifx\@arg\empty
+      \begin{mytheo}{}{}
+    \else
+      \begin{mytheo}{\@arg}{}
+    \fi
   \fi
   \pdfbookmark{\@problemname\ \arabic{@problem}}{\arabic{@problem}}
 }
 {
   \end@problem
   \ifHW@boxes
-    % \vspace{-1.5ex}
-    \end{pabox}
-    % \endtcolorbox
+    \end{mytheo}
   \fi
 }
 
 % Problems are numbered 1, 2, 3, ... by default
 % If a custom problem number is desired for a particular problem, use the
 % following macro before the problem.
-\def\problemnumber#1{\setcounter{@problem}{#1}\addtocounter{@problem}{-1}}
+% \def\problemnumber#1{\setcounter{@problem}{#1}\addtocounter{@problem}{-1}}
 
 % Parts environment
 % By default, parts are labeled by lowercase letters.
