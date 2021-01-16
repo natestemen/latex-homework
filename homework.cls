@@ -101,21 +101,15 @@
 
 % Set up page headers and footers using the `fancyhdr' package
 \RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
 \renewcommand\headrulewidth{0pt}
-% First page style
-\fancypagestyle{firstpage}
-{
-  \fancyhf{}
-  \fancyhead[R]{{\@name}\\{\@term}}
-  \fancyfoot[C]{\small\thepage}
-}
 % Subsequent page style
 \fancypagestyle{runningpage}
 {
   \fancyhf{}
   \fancyhead[L]{\small\@hwtitle}
   \fancyhead[R]{\small\@name}
-  \fancyfoot[C]{\small\thepage}
+  \fancyfoot[C]{\small\thepage/\pageref{LastPage}}
 }
 \pagestyle{runningpage}
 
@@ -123,11 +117,14 @@
 \renewcommand\maketitle
 {
   \thispagestyle{plain}
+  \hrule height 1.5pt
   \begin{center}
     \textsf{\textbf{\Large\@hwtitle}}
   \end{center}
-  \textbf{Name:} \@name \ (\@studentid)\hspace{\fill} \textbf{Due:} \@duedate \\
-  \textbf{Email:} \href{mailto:\@email}{\texttt{\@email}} \hspace{\fill} \textbf{Course:} \@courseid
+  \textbf{Name:} \@name{} (\@studentid) \hspace{\fill} \textbf{Due:} \@duedate \\
+  \textbf{Email:} \href{mailto:\@email}{\texttt{\@email}} \hspace{\fill} \textbf{Course:}~\@courseid
+  \medskip
+  \hrule height 1.5pt
 }
 % The title is printed automatically, no need to type \maketitle manually
 \AtBeginDocument{\maketitle}
@@ -168,11 +165,6 @@
 \newtcbtheorem{mytheo}{\@problemname}{colback=red!10,colframe=red!25,coltitle=black,fonttitle=\bfseries\sffamily}{th}
 
 % Problem environment
-\theoremstyle{definition}
-\newtheorem{@problem}{}%\sffamily\@problemname}
-\numberwithin{equation}{@problem}
-\numberwithin{table}{@problem}
-\numberwithin{figure}{@problem}
 \newenvironment{problem}[1][]
 {
   \ifHW@boxes
@@ -183,10 +175,8 @@
       \begin{mytheo}{\@arg}{}
     \fi
   \fi
-  \pdfbookmark{\@problemname\ \arabic{@problem}}{\arabic{@problem}}
 }
 {
-  \end@problem
   \ifHW@boxes
     \end{mytheo}
   \fi
